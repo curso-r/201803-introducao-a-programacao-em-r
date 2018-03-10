@@ -1,0 +1,78 @@
+---
+title: "R base"
+author: "Curso R"
+date: "17 de março de 2018"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+# Roteiro
+
+- RStudio
+- Pedindo ajuda
+- R como calculadora
+- Objetos (parte 1)
+- Objetos (parte 2)
+- Controles de Fluxo
+- Gráficos (base)
+- Instalar pacotes
+
+---
+
+background-image: url("rstudio.png")
+background-position: 50% 50%
+
+---
+
+# Pedindo ajuda
+
+1. Documentação do R
+2. Google
+3. Stack Overflow
+4. Colega
+
+---
+
+# Documentação do R
+
+A documentação do R serve para você aprender a usar uma determinada função.
+
+```{r, eval=FALSE}
+?mean
+help(mean)
+```
+
+---
+
+# Pesquisando no google
+
+```{r}
+mean("a")
+```
+
+---
+
+# Stack Overflow
+
+O [Stack Overflow](http://stackoverflow.com/) e o [Stack Overflow em Português](http://pt.stackoverflow.com/) são sites de Pergunta e Resposta amplamente utilizados por todas as linguagens de programação e R é uma delas.
+
+
+---
+
+# Como fazer uma pergunta boa no Stack Overflow?
+
+No site tem um tutorial com uma lista de boas práticas, [que se encontra aqui](http://pt.stackoverflow.com/help/how-to-ask). Algumas dicas são
+
+- Ser conciso
+- Ser específico
+- Ter mente aberta
+- Ser gentil
+
+-> Choque de cultura
+
+# 
