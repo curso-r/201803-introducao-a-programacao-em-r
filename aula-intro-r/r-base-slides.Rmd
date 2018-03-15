@@ -13,19 +13,15 @@ output:
 
 # Roteiro
 
-- RStudio
 - Pedindo ajuda
-- R como calculadora
-- Objetos (parte 1)
-- Objetos (parte 2)
-- Controles de Fluxo
-- Gráficos (base)
-- Instalar pacotes
-
----
-
-background-image: url("rstudio.png")
-background-position: 50% 50%
+- RStudio
+- R base
+   - calculadora
+   - Objetos (parte 1)
+   - Objetos (parte 2)
+   - Controles de Fluxo
+   - Gráficos (base)
+   - Instalar pacotes
 
 ---
 
@@ -51,9 +47,19 @@ help(mean)
 
 # Pesquisando no google
 
-```{r}
-mean("a")
+```{r, error=TRUE}
+log("a")
 ```
+
+<br>
+
+![](img/ajuda_google.png)
+
+---
+
+# Stack Overflow
+
+<img src="img/stackover.png" height="450" width="700"> 
 
 ---
 
@@ -61,18 +67,45 @@ mean("a")
 
 O [Stack Overflow](http://stackoverflow.com/) e o [Stack Overflow em Português](http://pt.stackoverflow.com/) são sites de Pergunta e Resposta amplamente utilizados por todas as linguagens de programação e R é uma delas.
 
+--
+
+<img src="img/mestre-magos.jpg" height="300" width="200"> 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+--
+<img src="img/daniel.jpeg" height="300" width="300">
+
+
+
+
 
 ---
 
-# Como fazer uma pergunta boa no Stack Overflow?
+# Como fazer uma boa pergunta?
 
-No site tem um tutorial com uma lista de boas práticas, [que se encontra aqui](http://pt.stackoverflow.com/help/how-to-ask). Algumas dicas são
+No site tem um tutorial com uma lista de boas práticas, [que se encontra aqui](http://pt.stackoverflow.com/help/how-to-ask). 
 
-- Ser conciso
-- Ser específico
-- Ter mente aberta
-- Ser gentil
+Algumas dicas são:
 
--> Choque de cultura
+* Ser conciso.
+* Ser específico.
+* Dar um exemplo.
+* Ser gentil.
 
-# 
+<br>
+
+--
+<img src="img/choque.png" height="260" width="300" style="display: block; margin-left: auto; margin-right: auto; width: 50%;">
+
+---
+
+# Colega
+
+Se todas as outras alternativas falharam, então procure um colega.
+
+<img src="img/penny-penny.gif" style="display: block; margin-left: auto; margin-right: auto; width: 50%;">
+
+---
+
+background-image: url("img/rstudio.png")
+background-position: 50% 50%
+

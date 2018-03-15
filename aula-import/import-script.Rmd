@@ -1,0 +1,111 @@
+---
+title: "Import script"
+author: "Curso-R"
+date: "17 de março de 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Instalando pacotes
+
+Para instalar pacotes, usamos a função `install.packages()`.
+
+```{r}
+install.packages("readr")
+install.packages(c("readr", "readxl"))
+```
+
+Para utilizar o pacote instalado, você precisa carregá-lo na sessão.
+
+```{r}
+library(readr)
+library(readxl)
+```
+
+É possível utilizar funções de um pacote sem carregá-lo da seguinte maneira:
+
+```{r}
+readr::read_csv()
+```
+
+
+# Importação
+
+Vamos falar dos seguintes formatos:
+
+- txt
+- csv
+- excel
+
+## Importando arquivos de texto
+
+Para importar arquivos de texto para R, como `.txt` ou `.csv`, utilizaremos o pacote `readr`.
+
+Veja alguns exemplos:
+
+```{r}
+dados_txt <- read_delim(file = "data/mtcars.txt", delim = " ")
+dados_csv <- read_csv(file = "data/mtcars.csv")
+```
+
+>> Classe importante: 
+
+`tibble`
+
+```{r}
+class(dados_txt)
+class(dados_csv)
+
+mtcars
+```
+
+----------------------------------------------------------------------------------
+
+## Importanto arquivos do Excel
+
+O pacote `readxl` contém funções para ler dados de arquivos do Excel, como `.xls` e `xlsx`.
+
+```{r}
+readxl::read_xls(path = "data/mtcars.xls")
+readxl::read_xlsx(path = "data/mtcars.xlsx")
+```
+
+A funçao `read_excel()` detecta automaticamente a extensão do arquivo.
+
+```{r}
+readxl::read_excel(path = "data/mtcars.xls")
+readxl::read_excel(path = "data/mtcars.xlsx")
+```
+
+----------------------------------------------------------------------------------
+
+# Execerício
+
+a) Descubra quais são as funções para guardar o data frames em arquivos. 
+
+b) Salve o data frame `mtcars` em csv.
+
+```{r}
+
+```
+
+
+Também é possível salvar objetos em um formato especial de arquivo do R, o `.rds`. 
+
+Vantagens:
+
+- Guarda a estrutura dos data frames (como a classe das colunas).
+- São arquivos bem mais compactos do que arquivos do Excel.
+
+c) Descubra a função para gravar arquivos no formato .rds.
+
+d) Salve o `mtcars` em rds.
+
+```{r}
+
+```
+
+

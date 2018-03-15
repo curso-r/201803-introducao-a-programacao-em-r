@@ -16,7 +16,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Curso-R
 
 ```{r, echo=FALSE, fig.align='center', out.width='64%'}
-knitr::include_graphics("Curso-R.png")
+knitr::include_graphics("img/Curso-R.png")
 ```
 
 ## O curso
@@ -33,8 +33,8 @@ knitr::include_graphics("https://raw.githubusercontent.com/hadley/r4ds/master/di
 
 ## Ciência de dados
 
-```{r, echo=FALSE, fig.align='center', fig.width=4, fig.height=4}
-knitr::include_graphics("bigdata2.png")
+```{r, echo=FALSE, fig.align='center', out.width="100%"}
+knitr::include_graphics("img/bigdata.png")
 ```
 
 ## Papel do R
@@ -81,7 +81,7 @@ O universo arrumadinho.
 Revolução do R: quem mexia em R antes de 2012 nota uma diferença gigante.
 
 ```{r, echo=FALSE, out.width="40%", fig.align='center'}
-knitr::include_graphics("abc.jpg")
+knitr::include_graphics("img/abc.jpg")
 ```
 
 ## Princípios do tidyverse

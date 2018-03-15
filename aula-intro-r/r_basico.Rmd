@@ -327,6 +327,8 @@ z <- "a"
 class(z)
 ```
 
+
+
 Exercício relâmpago:
 
 
@@ -374,9 +376,6 @@ y <- c(TRUE, FALSE, 10)
 ```
 
 **DOMINANTE** `character > complex > numeric > integer > logical` **RECESSIVO**
-
-
-
 
 
 
