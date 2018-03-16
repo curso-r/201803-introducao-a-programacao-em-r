@@ -15,13 +15,29 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Curso-R
 
-```{r, echo=FALSE, fig.align='center', out.width='64%'}
-knitr::include_graphics("img/Curso-R.png")
+- Nosso primeiro curso foi em 2015, no IME-USP.
+
+- A empresa surgiu em 2017.
+
+- Começamos a receber projetos de consultoria.
+
+- Filosofias: código aberto e relevância social.
+
+## Membros
+
+```{r, echo=FALSE, fig.align='center', out.width='75%'}
+knitr::include_graphics("img/Curso-R-2.png")
+```
+
+## Datathon
+
+```{r, echo=FALSE, fig.align='center', out.width='60%'}
+knitr::include_graphics("img/datathon.jpeg")
 ```
 
 ## O curso
 
-Nosso curso baseia-se no livro [R for data science](http://r4ds.had.co.nz).
+Nosso curso se baseia no livro [R for data science](http://r4ds.had.co.nz).
 
 Seguimos bastante a ideia por trás do ciclo da ciência de dados:
 
@@ -31,54 +47,20 @@ Seguimos bastante a ideia por trás do ciclo da ciência de dados:
 knitr::include_graphics("https://raw.githubusercontent.com/hadley/r4ds/master/diagrams/data-science.png")
 ```
 
-## Ciência de dados
+## Ferramentas para ciência de dados
 
 ```{r, echo=FALSE, fig.align='center', out.width="100%"}
 knitr::include_graphics("img/bigdata.png")
 ```
 
-## Papel do R
 
-R é a grande cola.
-
-**Exemplo:** Tensorflow, feito em Python, chamado no R pelo pacote keras.
-
-```{r, eval = FALSE}
-library(keras)
-
-modelo <- keras_model(input = 1)
-```
-
-## Diferenças entre C/C++ e R
-
-- `C`: eficiência e transparência.
-- `R`: análise de dados e interatividade. 
-
-Isso faz com que as duas linguagens sejam bem diferentes!
-
-Na prática, temos que
-
-- C é compilável, R é uma linguagem script.
-- R é uma linguagem funcional. Por exemplo, `(`, `&` e `+` são funções do R.
-
-
-## Diferenças entre C/C++ e R
-
-- R é vetorizado. Observe:
-
-```{r}
-a <- c(1, 2, 3)
-b <- c(1, 2, 3, 4, 5, 6)
-a + b 
-```
-
-Você raramente usará loops (`for`, `while`) no R.
+<center>R é a grande cola!</center> 
 
 ## Tidyverse
 
 O universo arrumadinho.
 
-Revolução do R: quem mexia em R antes de 2012 nota uma diferença gigante.
+**Revolução do R**: quem programava em R antes de 2012 nota uma diferença gigante.
 
 ```{r, echo=FALSE, out.width="40%", fig.align='center'}
 knitr::include_graphics("img/abc.jpg")
@@ -98,20 +80,7 @@ Princípio para arrumação de base de dados que resolve 90% dos problemas reais
 - Cada variável é uma coluna do bd.
 - Cada dado está numa célula do bd.
 
-
-## Princípios do tidyverse
-
-\> Utilização do operador *pipe*: `%>%`.
-
-*No matter how complex and polished the individual operations are, it is often the quality of the glue that most directly determines the power of the system.* -- Hal Abelson
-
-## Estrutura do tidyverse
-
-- *Aparato mnemônico*. Pacotes baseados em teoria e API consistentes.
-
-- *Minimalidade e funções puras*. Funções sem efeitos colaterais. Inputs e Outputs consistentes. Encaixa perfeitamente com o uso do pipe (%>%).
-
-- *Procedimentos* para ciência de dados.
+\> **Utilização do operador pipe**: `%>%`.
 
 ## Matarial do curso
 
