@@ -15,11 +15,19 @@ Nessa parte você aprenderá transformação de dados usando R
 knitr::include_graphics("imgs/wrangle.png")
 ```
 
+
+
+
 Depois dessa parte, você se sentirá assim
+
+
 
 ```{r, echo=FALSE, fig.align='center'}
 knitr::include_graphics("imgs/s-magia-top.jpg")
 ```
+
+
+
 
 Se você não praticar, você ficará assim
 
@@ -34,11 +42,17 @@ knitr::include_graphics("imgs/nada-a-ver.jpg")
 
 
 
+- Vamos utilizar uma base de dados de filmes do IMDB! 
+- Por isso, os memes dessa aula vêm do Choque de Cultura.
+- Se você não conhece, parabéns! Você é uma sobrevivente da internet.
+
+
+
 ## Exercício 1: Setup 
 
 1.1. Abra o arquivo `manip-script.Rmd`, dentro da pasta `aula-manip/`
 1.2. Encontre a linha onde está esse exercíicio.
-1.3. Coloque o cursor abaixo do 1.9.
+1.3. Coloque o cursor abaixo do 1.5.
 1.4. Digite `Ctrl+Alt+I`. Isso abrirá um *chunk*. 
     - É dentro do chunk que você roda códigos R.
     - NÀO ESCREVA CÓDIGOS R FORA DOS CHUNKS
@@ -74,33 +88,15 @@ m[1,1] <- "texto"
 m
 ```
 
-
 ```{r}
 d <- data.frame(a = 1:5, b = 6:10)
 d$a[1] <- "texto"
+str(d)
 ```
 
-
 <!-- ----------------------------------------------------------------------- -->
 
-## Revisão: RMarkdown
-
-- Forma de escrever textos e códigos tudo junto
-    - Use *chunks*: Ctrl + Alt + I
-- Excelente para análises estatísticas, anotações de aulas
-- Utiliza Markdown, um formato que pode virar qualquer coisa
-    - `#`, `##` para títulos
-    - `*`, `**`, `backtick` para negrito, itálico etc
-    - `$$` para fórmulas (MathJax)
-- Com RMarkdown, é possível fazer relatórios, artigos, teses, apresentações, dashboards, e sites
-
-$$
-\cup\cap\cup\cup\cap\cup\int\sum\int \;\;\;R^{md}\text{ rocks}!\;\;\;\int\sum\int\cup\cap\cup\cup\cap\cup
-$$
-
-<!-- ----------------------------------------------------------------------- -->
-
-## Pipe `%>%`
+## O operador pipe `%>%`
 
 ```{r, out.width="49%", echo=FALSE}
 knitr::include_graphics(c("imgs/magrittr.png", "imgs/magritte.jpg"))
@@ -165,10 +161,10 @@ recipiente(rep("farinha", 2), "água", "fermento", "leite", "óleo") %>%
 
 ```
 
-*Atalho*: %>% Ctrl + Shift + M 
-
 
 Agora o código realmente parece uma receita de bolo.
+
+*Atalho*: Ctrl + Shift + M 
 
 Para mais informações sobre o `pipe` e exemplos de utilização, visite a página [Ceci n'est pas un pipe](http://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html).
 
@@ -183,9 +179,10 @@ Dados: vamos usar o IMDB - 2016
 
 ```{r}
 imdb <- read_rds("data/dados_imdb.rds")
-
 imdb
 ```
+
+Outra forma de visualizar:
 
 ```{r}
 glimpse(imdb)
@@ -200,13 +197,23 @@ glimpse(imdb)
 - `arrange`: ordenar linhas
 - `summarise`: sumarizar colunas
 
+
+O `dplyr` pode ser considerado o pacote mais útil do R
+
+```{r}
+knitr::include_graphics("imgs/varias_razoes.jpg")
+```
+
+
 ### Características do `dplyr`
 
-- O _input_  é sempre uma `tibble`, e o _output_  é sempre um `tibble`.
-- No primeiro argumento colocamos o `tibble`, e nos outros argumentos colocamos o que queremos fazer.
+- O _input_  é sempre uma `tibble`, e o _output_  é sempre uma `tibble`.
+- No primeiro argumento colocamos a `tibble`, e nos outros argumentos colocamos o que queremos fazer.
 - A utilização é facilitada com o emprego do operador `%>%`
 
-### arrange
+<!-- ----------------------------------------------------------------------- -->
+
+### `arrange`
 
 ```{r}
 knitr::include_graphics("imgs/arrange.png")
@@ -216,10 +223,29 @@ knitr::include_graphics("imgs/arrange.png")
 - Utilizar `desc()` para ordem decrescente.
 
 ```{r}
-arrange(imdb, desc(imdb_score))
+arrange(imdb, imdb_score)
 ```
 
-### select
+```{r}
+knitr::include_graphics("imgs/justin-bieber-nsn-main.jpg")
+```
+
+Note que o código anterior é equivalente a 
+
+```{r}
+imdb %>% 
+  arrange(imdb_score)
+```
+
+Exercício 3:
+
+3.1. Quais são os 5 melhores filmes segundo o `imdb_score`?
+3.2. Quais são os 3 filmes em preto e branco mais recentes?
+    - Dica: use `title_year` e `color` 
+
+### `select`
+
+Crédito das imagens: [Garret Grolemund](https://ucsb-bren.github.io/env-info/wk03_dplyr/wrangling-webinar.pdf)
 
 ```{r}
 knitr::include_graphics("imgs/select.png")
@@ -234,7 +260,17 @@ imdb %>%
   select(movie_title, title_year, budget, gross)
 ```
 
-### filter
+Exercício 4:
+
+4.1. Selecione todas as colunas de atores.
+4.2. Selecione todas as colunas que acabam com `_name`.
+4.3. Selecione todas as colunas com `title`.
+4.4. Selecione todas as colunas menos `movie_facebook_likes`.
+4.5. Selecione todas as colunas entre `color` e `imdb_score`.
+
+<!-- ----------------------------------------------------------------------- -->
+
+### `filter`
 
 ```{r}
 knitr::include_graphics("imgs/filter.png")
@@ -250,7 +286,22 @@ imdb %>%
   filter(!is.na(title_year), !is.na(gross))
 ```
 
-### mutate
+Exercício 5:
+
+5.1. Filtre todos os filmes dos Estados Unidos
+5.2. Filtre todos os filmes dos Estados Unidos ou do Reino unido
+    - Dica: use `%in%`
+5.3. Filtre todos os filmes com `imdb_score` acima de 9 e ordene por `imdb_score` de forma crescente
+5.4. Filtre todos os filmes dos Estados Unidos com `budget` abaixo de 20.000 e ordene por `gross` de forma decrescente. Selecione as colunas `movie_title`, `title_year`, `gross` e `budget`. Verifique no Wikipédia o que raios ocorreu com o filme que ficou no topo.
+
+```{r}
+imdb %>% 
+  filter(country == "USA", budget < 20000) %>% 
+  arrange(desc(gross)) %>% 
+  select(movie_title, title_year, gross, budget)
+```
+
+### `mutate`
 
 ```{r}
 knitr::include_graphics("imgs/mutate.png")
@@ -258,7 +309,6 @@ knitr::include_graphics("imgs/mutate.png")
 
 - Aceita várias novas colunas iterativamente.
 - Novas variáveis devem ter o mesmo `length` que o `nrow` do bd original ou `1`.
-
 
 ```{r}
 imdb %>% 
@@ -268,6 +318,15 @@ imdb %>%
   arrange(desc(razao))
 ```
 
+Exercício 6:
+
+6.1. Qual é o filme menos rentável?
+6.2. Nova métrica
+  a. Retire filmes com razão acima de 100.
+  b. Coloque a razão de `gross` e `budget` no intervalo [0,1]. 
+  c. Crie um novo índice obtido pela multiplicação de `imdb_score` e a `razao` padronizada.
+  d. Qual é o melhor filme segundo esse índice?
+  
 ### summarise
 
 ```{r}
@@ -278,6 +337,7 @@ knitr::include_graphics("imgs/summarise.png")
 - Geralmente é utilizado em conjunto com `group_by()`.
 - Algumas funções importantes: `n()`, `n_distinct()`.
 
+Melhores diretores com 5 ou mais filmes:
 
 ```{r}
 imdb %>% 
@@ -288,7 +348,13 @@ imdb %>%
   arrange(desc(nota_media))
 ```
 
-## tidyr
+Exercício 7:
+
+7.1. Quais diretores tem maior soma, média e mediana de `gross`?
+7.2. Qual a combinação de gêneros mais comum?
+  Dica: use `count()`
+
+## `tidyr`
 
 - Até agora, estudamos os principais ferramentas de transformação de dados do `dplyr`. 
 - Agora vamos aumentar nosso toolkit com `tidyr`
@@ -299,22 +365,76 @@ imdb %>%
     - `nest()` e `unnest()`,
     - `separate()` e `unite()`
 
-
-### unite e separate
+### `unite` e `separate`
 
 - `unite` junta duas ou mais colunas usando algum separador (`_`, por exemplo).
 - `separate` faz o inverso de `unite`, e uma coluna em várias usando um separador.
+
+```{r}
+imdb %>% 
+  separate(genres, c("tipo1", "tipo2", "tipo3"), sep = "\\|",
+           fill = "right", extra = "merge")
+```
+
+Exercício 8:
+
+8.1. Dentre os diretores, qual o primeiro nome mais comum?
 
 ### gather e spread
 
 - `gather()` empilha o banco de dados
 
-xxx
+```{r}
+knitr::include_graphics(c("imgs/gather1.png", "imgs/gather2.png"))
+```
+
+Exemplo: ator mais frequente
+
+```{r}
+gathered <- imdb %>% 
+  select(movie_title, title_year, starts_with("actor")) %>% 
+  gather(tipo_ator, nome_ator, starts_with("actor")) 
+
+gathered
+
+gathered %>% 
+  count(nome_ator, sort = TRUE)
+```
+
+```{r}
+knitr::include_graphics("imgs/dificil3.jpg")
+```
+
+Lembre-se que `gather()` aumenta o número de linhas e reduz o número de colunas, mas não muda o número de células.
 
 - `spread()` espalha uma variável nas colunas e preenche com outra variável
+
+```{r}
+knitr::include_graphics(c("imgs/spread1.png", "imgs/spread2.png"))
+```
+
 - spread É essencialmente a função inversa de `gather`
 
+```{r}
+imdb %>% 
+  select(movie_title, title_year, color, starts_with("actor")) %>% 
+  gather(tipo_ator, nome_ator, starts_with("actor")) %>% 
+  count(color, nome_ator, sort = TRUE) %>%
+  filter(!is.na(color)) %>% 
+  spread(color, n, fill = 0) %>% 
+  arrange(desc(`Black and White`))
+```
 
+Exercício 9:
+
+9.1. Qual gênero é mais lucrativo?
+  a. Separe os 7 primeiros gêneros
+  b. Empilhe todos os gêneros
+  c. Retire os `NA`s
+  d. Obtenha quantidade, nota média e razão `gross` / `budget` para cada gênero
+  e. Retire gêneros com menos de 100 filmes
+  f. Ordene os gêneros pela razão de forma decrescente
+  
 <!-- ----------------------------------------------------------------------- -->
 
 ### Duplicatas
@@ -322,31 +442,38 @@ xxx
 Para retirar duplicatas, utilizar `distinct`. Ele considera apenas a primeira linha em que encontra um padrão para as combinações de variáveis escolhidas e descarta as demais.
 
 ```{r echo=TRUE}
-decisoes %>% 
-  distinct(municipio)
+imdb %>% 
+  distinct(director_name)
 ```
 
 Para manter as demais colunas, use `.keep_all=`:
 
 ```{r echo=TRUE}
-decisoes %>%
-  distinct(municipio, camara, 
-           .keep_all = TRUE)
+imdb %>% 
+  distinct(director_name, .keep_all = TRUE)
 ```
 
 Use `janitor::get_dupes()` para averiguar os casos em que há repetição de combinações de colunas.
 
 ```{r echo=TRUE}
-decisoes %>% 
-  get_dupes(n_processo)
+library(janitor)
+imdb %>% 
+  get_dupes(movie_title)
 ```
 
+Sim, tem duplicatas. E muitas! Talvez seja necessário realizar algumas análises novamente.
+
+### Exercício 10
+
+10.1. Dos estudos feitos anteriormente, quais são afetados por esse problema na base?
+10.2. Como você arrumaria a base usando a função `distinct()`?
+10.3. Refaça as análises afetadas com a base arrumada.
 
 Para mais aplicações do `janitor`, ver [este blog post](http://curso-r.com/blog/2017/07/24/2017-07-24-janitor/).
 
 <!-- ----------------------------------------------------------------------- -->
 
-### Joins
+### Extra: Joins
 
 ```{r, echo=FALSE, fig.align='center'}
 knitr::include_graphics("imgs/join-venn.png")
@@ -356,32 +483,36 @@ Para juntar tabelas, usar `inner_join`, `left_join`, `anti_join`, etc. O melhor 
 
 <!-- ----------------------------------------------------------------------- -->
 
-## Wrap-up
+```{r}
+knitr::include_graphics(c("imgs/info1.jpg", "imgs/info2.jpg"))
+```
 
-Hoje mexemos com importação transformação de dados
+# Wrap-up
 
-3. importação de dados
+Hoje nós:
+
+1. conhecemos o R, o RStudio e o R Markdown.
+2. nos ambientamos no R aprendendo
+    - operações
+    - tipos de objeto
+    - manipular vetores, listas e data frames
+    - criar e usar funções
+    - instalar e carregar pacotes
+3. aprendemos a importar dados
     - funções do tipo `read_*()` e `write_*()`
     - tipos de input: texto, binário, banco de dados, lista
         - excel é do tipo lista!
-4. os cinco verbos do `dplyr`
-    - `select()`, `filter()`, `mutate()`, `arrange()`, `summarise()`
-5. as funções inversíveis do `tidyr`
+4. aprendemos a usar o `%>%` e os cinco verbos do `dplyr`
+    - `arrange()`, `select()`, `filter()`, `mutate()`, `summarise()`
+5. conhecemos as funções inversíveis do tidyr
     - `gather()` e `spread()`
     - `unite()` e `separate()`
-6. miscelânea
+6. e uma miscelânea de coisas importantes
     - `distinct()` para retirar duplicatas.
-    - `case_when()` para reclassificações.
-    - `get_dupes()` do pacote `janitor`
+    - `get_dupes()` do pacote `janitor`.
 
-
-Na próxima vez, vamos visualizar dados com `ggplot2!`
+Na próxima vez, vamos visualizar dados com `ggplot2`!
 
 ```{r, echo=FALSE, fig.align='center'}
 knitr::include_graphics("imgs/visualize.jpg")
 ```
-
-
-
-
-
