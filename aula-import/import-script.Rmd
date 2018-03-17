@@ -64,7 +64,7 @@ mtcars
 
 ----------------------------------------------------------------------------------
 
-## Importanto arquivos do Excel
+## Importando arquivos do Excel
 
 O pacote `readxl` contém funções para ler dados de arquivos do Excel, como `.xls` e `xlsx`.
 
@@ -82,7 +82,7 @@ readxl::read_excel(path = "data/mtcars.xlsx")
 
 ----------------------------------------------------------------------------------
 
-# Execerício
+# Exercício
 
 a) Descubra quais são as funções para guardar o data frames em arquivos. 
 
