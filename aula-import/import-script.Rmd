@@ -85,11 +85,18 @@ readxl::read_excel(path = "data/mtcars.xlsx")
 # Exercício
 
 a) Descubra quais são as funções para guardar o data frames em arquivos. 
+```{r}
+readr::write_csv()
+readr::write_rds()
+```
+
 
 b) Salve o data frame `mtcars` em csv.
 
 ```{r}
+readr::read_csv(mtcars, "mtcars.csv")
 
+# Repare que você precisa especificar a extensão do arquivo.
 ```
 
 
@@ -105,7 +112,7 @@ c) Descubra a função para gravar arquivos no formato .rds.
 d) Salve o `mtcars` em rds.
 
 ```{r}
-
+readr::read_rds(mtcars, "mtcars.rds")
 ```
 
 
