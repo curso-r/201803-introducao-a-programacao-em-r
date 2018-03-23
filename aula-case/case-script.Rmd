@@ -7,9 +7,10 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE)
 
 library(tidyverse)
+library(flexdashboard)
 orders <- read_csv("orders.csv") # compras
 order_products <- read_csv("order_products.csv") # produtos de cada compra
 
