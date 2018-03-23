@@ -145,7 +145,11 @@ Cuidado com a precisão.
 
 # a) Calcule o valor de zero dividido por zero.
 
+0/0
+
 # b) Teste se o valor de zero elevado a zero é igual a 1.
+
+0^0 == 1
 
 ```
 
@@ -225,6 +229,10 @@ Dica: o número de ouro é dado pela seguinte expressão
 $$
 \frac{1 + \sqrt{5}}{2}
 $$
+
+```{r}
+(1 + sqrt(5))/2
+```
 
 -------------------------------------------------------------------------------------
 
@@ -334,6 +342,10 @@ class(w)
 ```{r}
 # O que acontece se fizermos a soma 1 + TRUE?
 
+1 + TRUE
+
+# O TRUE vira um valor numérico, no caso, o número 1.
+
 ```
 
 ## Outros tipos de vetores
@@ -402,13 +414,29 @@ x[c(TRUE, FALSE, TRUE, FALSE)]
 
 x <- 1:10
 
+# Usamos o operador %% para avaliar os valores cuja divisão com 2 tem resto 0.
+
+x %% 2
+
+(x %% 2) == 0
+
+# Então usamos os valores lógicos para fazer a seleção.
+
+x[(x %% 2) == 0]
+
 # 2) Calcule a soma dos números de um a mil
 
+sum(1:1000)
+
 # 3) Calcule o seno do produto de Pi pela soma dos números de um a mil.
+
+sin(pi*sum(1:1000))
 
 # 4) Calcule a proporção de TRUE's em x.
 
 x <- c(TRUE, FALSE, TRUE, TRUE, FALSE)
+
+sum(x)/length(x)
 ```
 
 -------------------------------------------------------------------------------------
@@ -476,7 +504,14 @@ lista[3]
 ```{r, echo=FALSE, eval=FALSE}
 # a) Construa uma lista com dois vetores de tamanhos e classes diferentes.
 
+lista <- list(a = 1:5,
+              b = letters[1:3])
+
 # b) Acesse o último elemento do segundo vetor da lista que você acabou de fazer.
+
+lista[[2]][3]
+
+lista$b[3]
 
 ```
 
@@ -524,7 +559,12 @@ mtcars[,1]
 ```{r}
 # a) Construa uma lista com dois vetores de tamanhos iguais.
 
+lista <- list(a = 1:5,
+              b = letters[1:5])
+
 # b) Transforme a lista em um data.frame usando a função as.data.frame().
+
+df <- as.data.frame(lista)
 
 ```
 
@@ -568,6 +608,17 @@ round(mean(1:6))
 # Exercício
 
 O coeficiente de variação é a razão entre o desvio padrão e a média de um conjunto de dados. Construa uma função que calcule o coeficiente de variação de um vetor numérico. Em seguida, calcule o coeficiente de variação do vetor 1:100.
+
+```{r}
+cv <- function(x) {
+  
+  sd(x)/mean(x)
+  
+}
+
+cv(1:100)
+```
+
 
 -------------------------------------------------------------------------------------
 
@@ -667,4 +718,21 @@ Brincadeira do "Pi"
 
 Faça um vetor que contenha "Pi" no lugar dos números divisíveis por 3.
 
+```{r}
+# Solução
+
+vetor <- 1:100
+
+# Podemos usar o operador %% para testar quais valores são divisíveis por 3.
+
+vetor %% 3
+
+# Queremos os valores cujo resto da divisão por 3 seja 0.
+
+(vetor %% 3) == 0
+
+# Agora, podemos usar a função ifelse para fazer as substituições.
+
+ifelse((vetor %% 3) == 0, "pi", vetor)
+```
 
