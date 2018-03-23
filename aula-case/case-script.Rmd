@@ -7,4 +7,12 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+orders <- read_csv("orders.csv") # compras
+order_products <- read_csv("order_products.csv") # produtos de cada compra
+
+aisles <- read_csv("aisles.csv") # corredores - como no mercado
+departments <- read_csv("departments.csv") # departamentos
+products <- read_csv("products.csv") # produtos
 ```
