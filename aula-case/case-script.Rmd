@@ -2,7 +2,8 @@
 title: "Case script"
 author: "Curso-R"
 date: "24 de março de 2018"
-output: html_document
+output: 
+  flexdashboard::flex_dashboard
 ---
 
 ```{r setup, include=FALSE}
@@ -15,4 +16,7 @@ order_products <- read_csv("order_products.csv") # produtos de cada compra
 aisles <- read_csv("aisles.csv") # corredores - como no mercado
 departments <- read_csv("departments.csv") # departamentos
 products <- read_csv("products.csv") # produtos
+
+# http://rpubs.com/dfalbel/instacart
+# https://rmarkdown.rstudio.com/flexdashboard/
 ```
