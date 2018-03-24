@@ -31,10 +31,11 @@ cat(
   "
 )
 
+glimpse(imdb)
+
 ## Exercício 3:
   
 # 3.1. Quais são os 5 melhores filmes segundo o `imdb_score`?
-
 imdb %>% 
   arrange(desc(imdb_score)) %>% 
   head(5)
@@ -45,6 +46,12 @@ imdb %>%
 imdb %>% 
   arrange(color, desc(title_year)) %>% 
   head(3)
+
+imdb %>% 
+  filter(color %in% "Black and White") %>%
+  arrange(desc(title_year)) %>% 
+  head(3)
+
 
 ## Exercício 4:
 
@@ -108,22 +115,22 @@ imdb %>%
 # 6.1. Qual é o filme menos rentável?
 
 imdb %>% 
-  mutate(razao = gross / budget) %>% 
-  arrange(desc(razao))
+  mutate(rentabilidade = gross / budget) %>% 
+  arrange(rentabilidade)
 
 # 6.2. Nova métrica
-# a. Retire filmes com razão acima de 100.
-# b. Coloque a razão de `gross` e `budget` no intervalo [0,1]. 
+# a. Retire filmes com rentabilidade acima de 100.
+# b. Coloque a rentabilidade no intervalo [0,1]. 
 # c. Crie um novo índice obtido pela multiplicação de `imdb_score` e 
-# a `razao` padronizada.
+# a `rentabilidade` padronizada.
 # d. Qual é o melhor filme segundo esse índice?
 
 imdb %>% 
-  mutate(razao = gross / budget) %>% 
-  filter(razao <= 100) %>% 
-  mutate(razao = razao / max(razao),
-         indice = imdb_score * razao) %>% 
-  arrange(desc(razao))
+  mutate(rentabilidade = gross / budget) %>% 
+  filter(rentabilidade <= 100) %>% 
+  mutate(rentabilidade = rentabilidade / max(rentabilidade),
+         indice = imdb_score * rentabilidade) %>% 
+  arrange(desc(rentabilidade))
 
 ## Exercício 7:
   
@@ -187,6 +194,16 @@ imdb %>%
   arrange(desc(razao))
 
 ### Exercício 10
+# 
+# Use `janitor::get_dupes()` para averiguar os casos em que há repetição de combinações de colunas.
+# 
+
+library(janitor)
+imdb %>% 
+ get_dupes(movie_title)
+
+# 
+# Sim, tem duplicatas. E muitas! Talvez seja necessário realizar algumas análises novamente.
 
 # 10.1. Dos estudos feitos anteriormente, 
 # quais são afetados por esse problema na base?
