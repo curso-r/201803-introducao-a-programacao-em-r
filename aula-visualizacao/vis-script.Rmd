@@ -98,7 +98,7 @@ imdb %>%
 ```
 
 Exercício 1:
-1.1 - Coloque os valores em cima da barra (adicionar um layer!). Use o geom_label() para isso, mas antes descubra qual aesthetic é obrigatório para ele.
+1.1 - Coloque os valores em cima da barra (adicionar um layer!) usando o geom_label() para isso. DICA: antes descubra qual aesthetic é obrigatório para ele pelo help(geom_label).
 
 1.2 - Arrume o número para que fique apresentável. Dica: use a função round() para arredondar os números que irão aparecer no gráfico.
 
@@ -259,12 +259,22 @@ imdb %>%
 
 
 ```{r}
-imdb %>%
-  mutate(rentabilidade = gross/budget) %>%
-  filter(genres %in% c("Drama", "Comedy", "Horror", "Documentary")) %>%
-  ggplot(aes(x = country)) +
-  geom_bar(aes(fill = genres))
+base_do_grafico <- imdb %>%
+  filter(genres %in% c("Drama", "Comedy", "Horror", "Documentary"),
+         country %in% c("USA", "UK")) %>%
+  ggplot(aes(x = country))
+
+# position STACK
+base_do_grafico + geom_bar(aes(fill = genres))
+
+# position FILL
+base_do_grafico + geom_bar(aes(fill = genres), position = "fill")
+
+# position DODGE
+base_do_grafico + geom_bar(aes(fill = genres), position = "dodge")
 ```
+
+
 
 ## facets
 
@@ -284,14 +294,11 @@ mtcars %>%
 
 Exercício 6:
 
-Comparar as notas `imdb_score` do Tarantino, Scorsese e Tim Burton ao longo do tempo.
+Faça um gráfico dos orçamentos `budget` ao longo do tempo `title_year` para cada um dos diretores Tarantino, Scorsese e Tim Burton. Use facet_grid ou facet_wrap para criar os 3 gráficos de uma vez.
 
 ```{r}
 imdb %>% 
-  filter(director_name %in% c('Quentin Tarantino', 'Martin Scorsese', 'Tim Burton')) %>% 
-  ggplot() +
-  geom_point(aes(x = title_year, y = imdb_score)) +
-  facet_grid(~director_name)
+  filter(director_name %in% c('Quentin Tarantino', 'Martin Scorsese', 'Tim Burton')) %>%
 ```
 
 
@@ -354,6 +361,7 @@ Exercício 7:
 
 Personalize o gráfico das notas `imb_score` do Tarantino, Scorsese e Tim Burton ao longo do tempo com título, eixos e legenda.
 
+
 ```{r}
 imdb %>% 
   dplyr::filter(director_name %in% c("Quentin Tarantino", "Martin Scorsese", "Tim Burton")) %>% 
@@ -366,7 +374,30 @@ imdb %>%
 ```
 
 
+## Tópicos Extras
 
+### stat_*()
+
+Atalhos para fazer gráficos mais sofisticados que envolvam cálculos estatísticos específicos.
+
+```{r}
+# stat_ecdf
+imdb %>% 
+  dplyr::filter(director_name %in% c("Quentin Tarantino", "Martin Scorsese", "Tim Burton")) %>%
+  ggplot(aes(x = imdb_score, colour = director_name)) +
+  stat_ecdf()
+```
+
+- stat_smooth serve para desenhar uma curva suavisada em um gráfico de dispersão para fins de encontrar tendências.
+
+Exercício: aplique a camada stat_smooth() no gráfico abaixo.
+
+```{r}
+# stat_smooth
+mpg %>% 
+  ggplot() +
+  geom_point(aes(x = displ, y = hwy))
+```
 
 
 *Exercícios extras*
