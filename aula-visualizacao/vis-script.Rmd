@@ -9,34 +9,6 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-Nessa parte você aprenderá visualização de dados usando R
-
-```{r}
-knitr::include_graphics("img/visualise.png")
-```
-
-## Aula passada
-
-1. conhecemos o R, o RStudio e o R Markdown.
-2. nos ambientamos no R aprendendo
-    - operações
-    - tipos de objeto
-    - manipular vetores, listas e data frames
-    - criar e usar funções
-    - instalar e carregar pacotes
-3. aprendemos a importar dados
-    - funções do tipo `read_*()` e `write_*()`
-    - tipos de input: texto, binário, banco de dados, lista
-        - excel é do tipo lista!
-4. aprendemos a usar o `%>%` e os cinco verbos do `dplyr`
-    - `arrange()`, `select()`, `filter()`, `mutate()`, `summarise()`
-5. conhecemos as funções inversíveis do tidyr
-    - `gather()` e `spread()`
-    - `unite()` e `separate()`
-6. e uma miscelânea de coisas importantes
-    - `distinct()` para retirar duplicatas.
-    - `get_dupes()` do pacote `janitor`.
-
 Agora vamos visualizar dados com `ggplot2`!
 Vamos continuar a utilizar a base de dados de filmes do IMDB da aula passada.
 
@@ -315,12 +287,27 @@ Exercício 6:
 Comparar as notas `imdb_score` do Tarantino, Scorsese e Tim Burton ao longo do tempo.
 
 ```{r}
-dados %>% 
+imdb %>% 
   filter(director_name %in% c('Quentin Tarantino', 'Martin Scorsese', 'Tim Burton')) %>% 
   ggplot() +
   geom_point(aes(x = title_year, y = imdb_score)) +
   facet_grid(~director_name)
 ```
+
+
+## gather e ggplot
+
+Frequentemente usamos gather para preparar os dados para fazer um gráfico. Por exemplo, imagine que desejamos um histograma para cada variável em um único gráfico:
+
+```{r}
+iris %>%
+  gather(variavel, valor, -Species) %>%
+  ggplot(aes(x = valor, fill = variavel)) +
+  geom_histogram() +
+  facet_wrap(~variavel)
+```
+
+
 
 
 ## Aparência
@@ -343,6 +330,7 @@ ggplot(mtcars) +
 
 - Temas
 - Legenda
+- scale_*()
 
 ```{r}
 ggplot(mtcars) +
@@ -352,14 +340,14 @@ ggplot(mtcars) +
   ggtitle("Mtcars plot", subtitle = "R base dataset") +
   theme(legend.position = "right") + 
   scale_fill_discrete(name = "Cyl",
-              labels = c("4___ ", "6___ ", "8___ ")) +
+                      labels = c("4___ ", "6___ ", "8___ ")) +
   theme_minimal()
 
 # theme_bw()
 # theme_minimal
 ```
 
-
+Exercício relâmpago: olhe o help(theme) para descobrir a lista de itens que podemos mexer no ggplot2.
 
 
 Exercício 7:
@@ -367,7 +355,7 @@ Exercício 7:
 Personalize o gráfico das notas `imb_score` do Tarantino, Scorsese e Tim Burton ao longo do tempo com título, eixos e legenda.
 
 ```{r}
-dados %>% 
+imdb %>% 
   dplyr::filter(director_name %in% c("Quentin Tarantino", "Martin Scorsese", "Tim Burton")) %>% 
   ggplot() +
   geom_line(aes(x = title_year, y = imdb_score, color = as.factor(director_name))) +
@@ -449,7 +437,7 @@ Passo a passo:
 ## Exercício 1
 
 ```{r}
-dados %>% 
+imdb %>% 
   filter(country == "USA", director_name == "Ridley Scott") %>%  #
   unique() %>% 
   ggplot +
@@ -459,7 +447,7 @@ dados %>%
 Arrumando o número de classes
 
 ```{r}
-dados %>% 
+imdb %>% 
   filter(director_name == "Ridley Scott") %>%  #
   unique() %>% 
   ggplot +
@@ -469,7 +457,7 @@ dados %>%
 Mudando a cor
 
 ```{r}
-dados %>% 
+imdb %>% 
   filter(director_name == "Ridley Scott") %>%  #
   unique() %>% 
   ggplot +
@@ -479,7 +467,7 @@ dados %>%
 Mudando a cor - Parte II
 
 ```{r}
-dados %>% 
+imdb %>% 
   dplyr::filter(director_name == "Ridley Scott") %>%  #
   unique() %>% 
   ggplot +
@@ -490,7 +478,7 @@ dados %>%
 ## Exercício 2
 
 ```{r}
-dados %>%
+imdb %>%
   dplyr::filter(country == "USA", title_year >= 2000) %>% 
   ggplot(aes(x = budget, y = imdb_score, color = title_year)) +
   geom_point() +
@@ -501,7 +489,7 @@ dados %>%
 ## Exercício 3
 
 ```{r}
-dados %>%
+imdb %>%
   mutate(title_year = fct_infreq(as.factor(title_year), ordered = TRUE)) %>% 
   ggplot() +
   geom_bar(aes(x = title_year), color = "black", fill = "light green")
@@ -510,7 +498,7 @@ dados %>%
 ## Exercício 4
 
 ```{r}
-dados %>%
+imdb %>%
   dplyr::filter(actor_1_name == "Andrew Garfield" |
          actor_2_name == "Andrew Garfield" |
          actor_3_name == "Andrew Garfield",
