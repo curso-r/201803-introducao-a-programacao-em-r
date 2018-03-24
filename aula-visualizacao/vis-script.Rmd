@@ -8,3 +8,96 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+Nessa parte você aprenderá visualização de dados usando R
+
+```{r}
+knitr::include_graphics("img/visualise.png")
+```
+
+## Aula passada
+
+1. conhecemos o R, o RStudio e o R Markdown.
+2. nos ambientamos no R aprendendo
+    - operações
+    - tipos de objeto
+    - manipular vetores, listas e data frames
+    - criar e usar funções
+    - instalar e carregar pacotes
+3. aprendemos a importar dados
+    - funções do tipo `read_*()` e `write_*()`
+    - tipos de input: texto, binário, banco de dados, lista
+        - excel é do tipo lista!
+4. aprendemos a usar o `%>%` e os cinco verbos do `dplyr`
+    - `arrange()`, `select()`, `filter()`, `mutate()`, `summarise()`
+5. conhecemos as funções inversíveis do tidyr
+    - `gather()` e `spread()`
+    - `unite()` e `separate()`
+6. e uma miscelânea de coisas importantes
+    - `distinct()` para retirar duplicatas.
+    - `get_dupes()` do pacote `janitor`.
+
+Agora vamos visualizar dados com `ggplot2`!
+Vamos continuar a utilizar a base de dados de filmes do IMDB da aula passada.
+
+
+```{r}
+library(tidyverse)
+imdb <- read_rds("data/dados_imdb.rds")
+glimpse(imdb)
+```
+
+## ggplot2
+
+- Cheat Sheet do `ggplot2`: https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf
+- R for Data Science: http://r4ds.had.co.nz/data-visualisation.html
+- ggplot2.tidyverse.org: http://ggplot2.tidyverse.org/articles/ggplot2-specs.html
+- Curso-R: http://material.curso-r.com/ggplot/
+
+```{r}
+mpg %>% 
+  ggplot() +
+  geom_point(aes(x = displ, y = hwy)) +
+  labs(x = 'Tamanho do Motor', y = 'Eficiência de Combustível (na estrada)') +
+  ggtitle('Dados de economia de combustível para 38 modelos populares de carro', subtitle = '1999 e 2008')
+```
+
+
+
+## Por que utilizar o ggplot2 ?
+
+```{r}
+plot(x = mpg$displ, y = mpg$hwy, 
+     main = 'Dados de economia de combustível para 38 modelos populares de carro', 
+     xlab = 'Tamanho do Motor', 
+     ylab = 'Eficiência de Combustível (na estrada)')
+```
+
+- a construção é intuitiva e organizada.
+- a estrutura é a mesma para todo tipo de gráfico.
+- são naturalmente mais bonitos!
+
+
+
+## aesthetics
+
+
+## geoms
+
+
+## facets
+
+
+## camadas
+
+
+## stats
+
+
+
+
+
+
+
+
+
